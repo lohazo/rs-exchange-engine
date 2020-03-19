@@ -1,0 +1,21 @@
+CREATE TABLE "public"."exchange_exchangeorder" (
+  "id" int4 NOT NULL DEFAULT nextval('exchange_exchangeorder_id_seq'::regclass),
+  "date_added" timestamptz(6) NOT NULL,
+  "date_modified" timestamptz(6) NOT NULL,
+  "deleted_at" timestamptz(6),
+  "is_deleted" bool NOT NULL,
+  "status" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
+  "type" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
+  "price" numeric(24,12) NOT NULL,
+  "fee_rate" numeric(24,12) NOT NULL,
+  "amount" numeric(24,12) NOT NULL,
+  "amount_left" numeric(24,12) NOT NULL,
+  "currency_pair_id" int4 NOT NULL,
+  "user_id" int4 NOT NULL,
+  "cht_price" numeric(24,12) NOT NULL,
+  "using_cht_fee" bool NOT NULL,
+  "actual_rate" numeric(24,12) NOT NULL,
+  "is_market_order" bool NOT NULL,
+  "market_price" numeric(24,12),
+  "stop_price" numeric(24,12)
+)

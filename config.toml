@@ -1,0 +1,1 @@
+database_uri = "postgres://jang@localhost:5432/lambda_exchange"

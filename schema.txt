@@ -1,0 +1,1144 @@
+table! {
+    _Migration (revision) {
+        revision -> Int4,
+        name -> Text,
+        datamodel -> Text,
+        status -> Text,
+        applied -> Int4,
+        rolled_back -> Int4,
+        datamodel_steps -> Text,
+        database_migration -> Text,
+        errors -> Text,
+        started_at -> Timestamp,
+        finished_at -> Nullable<Timestamp>,
+    }
+}
+
+table! {
+    auth_group (id) {
+        id -> Int4,
+        name -> Varchar,
+    }
+}
+
+table! {
+    auth_group_permissions (id) {
+        id -> Int4,
+        group_id -> Int4,
+        permission_id -> Int4,
+    }
+}
+
+table! {
+    auth_permission (id) {
+        id -> Int4,
+        name -> Varchar,
+        content_type_id -> Int4,
+        codename -> Varchar,
+    }
+}
+
+table! {
+    auth_user (id) {
+        id -> Int4,
+        username -> Nullable<Varchar>,
+        password -> Nullable<Varchar>,
+    }
+}
+
+table! {
+    auth_user_groups (id) {
+        id -> Int4,
+        user_id -> Int4,
+        group_id -> Int4,
+    }
+}
+
+table! {
+    auth_user_user_permissions (id) {
+        id -> Int4,
+        user_id -> Int4,
+        permission_id -> Int4,
+    }
+}
+
+table! {
+    defender_accessattempt (id) {
+        id -> Int4,
+        user_agent -> Varchar,
+        ip_address -> Nullable<Inet>,
+        username -> Nullable<Varchar>,
+        http_accept -> Varchar,
+        path_info -> Varchar,
+        attempt_time -> Timestamptz,
+        login_valid -> Bool,
+    }
+}
+
+table! {
+    django_admin_log (id) {
+        id -> Int4,
+        action_time -> Timestamptz,
+        object_id -> Nullable<Text>,
+        object_repr -> Varchar,
+        action_flag -> Int2,
+        change_message -> Text,
+        content_type_id -> Nullable<Int4>,
+        user_id -> Int4,
+    }
+}
+
+table! {
+    django_celery_beat_crontabschedule (id) {
+        id -> Int4,
+        minute -> Varchar,
+        hour -> Varchar,
+        day_of_week -> Varchar,
+        day_of_month -> Varchar,
+        month_of_year -> Varchar,
+    }
+}
+
+table! {
+    django_celery_beat_intervalschedule (id) {
+        id -> Int4,
+        every -> Int4,
+        period -> Varchar,
+    }
+}
+
+table! {
+    django_celery_beat_periodictask (id) {
+        id -> Int4,
+        name -> Varchar,
+        task -> Varchar,
+        args -> Text,
+        kwargs -> Text,
+        queue -> Nullable<Varchar>,
+        exchange -> Nullable<Varchar>,
+        routing_key -> Nullable<Varchar>,
+        expires -> Nullable<Timestamptz>,
+        enabled -> Bool,
+        last_run_at -> Nullable<Timestamptz>,
+        total_run_count -> Int4,
+        date_changed -> Timestamptz,
+        description -> Text,
+        crontab_id -> Nullable<Int4>,
+        interval_id -> Nullable<Int4>,
+        solar_id -> Nullable<Int4>,
+    }
+}
+
+table! {
+    django_celery_beat_periodictasks (ident) {
+        ident -> Int2,
+        last_update -> Timestamptz,
+    }
+}
+
+table! {
+    django_celery_beat_solarschedule (id) {
+        id -> Int4,
+        event -> Varchar,
+        latitude -> Numeric,
+        longitude -> Numeric,
+    }
+}
+
+table! {
+    django_content_type (id) {
+        id -> Int4,
+        app_label -> Varchar,
+        model -> Varchar,
+    }
+}
+
+table! {
+    django_migrations (id) {
+        id -> Int4,
+        app -> Varchar,
+        name -> Varchar,
+        applied -> Timestamptz,
+    }
+}
+
+table! {
+    django_session (session_key) {
+        session_key -> Varchar,
+        session_data -> Text,
+        expire_date -> Timestamptz,
+    }
+}
+
+table! {
+    exchange_candlestick (id) {
+        id -> Int4,
+        timestamp -> Timestamptz,
+        currency_pair_id -> Int4,
+        close -> Numeric,
+        high -> Numeric,
+        interval -> Varchar,
+        low -> Numeric,
+        open -> Numeric,
+        volume -> Numeric,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+    }
+}
+
+table! {
+    exchange_currencypair (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        enable -> Bool,
+        fee_rate -> Nullable<Numeric>,
+        min_order_price -> Nullable<Numeric>,
+        min_order_total -> Nullable<Numeric>,
+        min_order_amount -> Nullable<Numeric>,
+        base_id -> Int4,
+        pair_id -> Int4,
+        note -> Nullable<Jsonb>,
+    }
+}
+
+table! {
+    exchange_exchangeconfig (id) {
+        id -> Int4,
+        enable -> Bool,
+        fee_rate -> Numeric,
+        discount_rate -> Numeric,
+        enable_cashback_fee -> Bool,
+        enable_cht_fee -> Bool,
+        enable_ref_fee -> Bool,
+    }
+}
+
+table! {
+    exchange_exchangeorder (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        status -> Varchar,
+        #[sql_name = "type"]
+        type_ -> Varchar,
+        price -> Numeric,
+        fee_rate -> Numeric,
+        amount -> Numeric,
+        amount_left -> Numeric,
+        currency_pair_id -> Int4,
+        user_id -> Int4,
+        cht_price -> Numeric,
+        using_cht_fee -> Bool,
+        actual_rate -> Numeric,
+        is_market_order -> Bool,
+        market_price -> Nullable<Numeric>,
+        stop_price -> Nullable<Numeric>,
+    }
+}
+
+table! {
+    exchange_exchangeordermatched (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        price -> Numeric,
+        amount -> Numeric,
+        fee_rate -> Numeric,
+        ex_id -> Int4,
+        target_ex_id -> Int4,
+        currency_pair_id -> Nullable<Int4>,
+        total_amount -> Numeric,
+        note -> Nullable<Jsonb>,
+    }
+}
+
+table! {
+    general_bankwebhookconfig (id) {
+        id -> Int4,
+        service -> Varchar,
+        enable -> Bool,
+        white_list -> Nullable<Jsonb>,
+        encrypt_data -> Nullable<Text>,
+        note -> Nullable<Jsonb>,
+    }
+}
+
+table! {
+    general_restrictipaddress (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        ip_address -> Inet,
+        expired_at -> Nullable<Timestamptz>,
+        reason -> Text,
+        created_by_id -> Int4,
+    }
+}
+
+table! {
+    general_siteconfig (id) {
+        id -> Int4,
+        is_maintain -> Bool,
+        enable_captcha -> Bool,
+        android_url -> Varchar,
+        ios_url -> Varchar,
+    }
+}
+
+table! {
+    general_sitestatistic (id) {
+        id -> Int4,
+        day_volume -> Numeric,
+        day_volume_buffer -> Numeric,
+        day_bonus -> Numeric,
+        day_bonus_buffer -> Numeric,
+        day_cht_issue -> Numeric,
+        day_cht_issue_buffer -> Numeric,
+        total_cht_spent -> Numeric,
+        total_cht_spent_buffer -> Numeric,
+        total_cht_balance -> Numeric,
+        total_cht_balance_buffer -> Numeric,
+    }
+}
+
+table! {
+    general_subscriber (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        email -> Varchar,
+    }
+}
+
+table! {
+    ref_lockrefrate (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        level -> Int4,
+        amount -> Numeric,
+        rate -> Numeric,
+    }
+}
+
+table! {
+    ref_ref (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        note -> Nullable<Array<Varchar>>,
+        ref_id -> Int4,
+        user_id -> Int4,
+    }
+}
+
+table! {
+    ref_refconfig (id) {
+        id -> Int4,
+        enable_airdrop -> Bool,
+        enable_maintenance -> Bool,
+        rate_airdrop -> Numeric,
+    }
+}
+
+table! {
+    ref_reflevel (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        name -> Varchar,
+        order -> Int4,
+        percentage -> Numeric,
+        description -> Nullable<Varchar>,
+        enable -> Bool,
+        required_commission -> Nullable<Int4>,
+        required_members -> Nullable<Int4>,
+    }
+}
+
+table! {
+    ref_reftransaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        name -> Varchar,
+        order -> Nullable<Int4>,
+        percentage -> Numeric,
+        total_fee -> Numeric,
+        earned -> Numeric,
+        exchange_order_matched_id -> Int4,
+        ref_id -> Int4,
+        spent -> Numeric,
+    }
+}
+
+table! {
+    reward_rewardconfig (id) {
+        id -> Int4,
+        enable -> Bool,
+    }
+}
+
+table! {
+    telegram_bot_telegrambotconfig (id) {
+        id -> Int4,
+        token -> Nullable<Varchar>,
+        webhook_url -> Nullable<Varchar>,
+        freeze_time -> Int4,
+    }
+}
+
+table! {
+    telegram_bot_twofactorremovalhistory (id) {
+        id -> Int4,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        username_reply -> Jsonb,
+        contact_reply -> Nullable<Jsonb>,
+        hit -> Bool,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+    }
+}
+
+table! {
+    userprofile_kyc (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        address -> Nullable<Varchar>,
+        id_number -> Nullable<Varchar>,
+        status -> Varchar,
+        note -> Nullable<Jsonb>,
+        user_id -> Int4,
+        verifier_id -> Nullable<Int4>,
+        back_side_photo -> Nullable<Varchar>,
+        birthday -> Nullable<Date>,
+        first_name -> Nullable<Varchar>,
+        front_side_photo -> Nullable<Varchar>,
+        gender -> Nullable<Varchar>,
+        id_type -> Varchar,
+        last_name -> Nullable<Varchar>,
+        selfie_photo -> Nullable<Varchar>,
+        verified_at -> Nullable<Timestamptz>,
+        country_code -> Nullable<Varchar>,
+    }
+}
+
+table! {
+    userprofile_staffprofile (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        user_id -> Int4,
+    }
+}
+
+table! {
+    userprofile_statictoken (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        used_at -> Nullable<Timestamptz>,
+        token -> Varchar,
+        user_id -> Int4,
+    }
+}
+
+table! {
+    userprofile_twofactortoken (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        otp_token -> Text,
+        hotp_counter -> Int4,
+        user_id -> Int4,
+        status -> Varchar,
+    }
+}
+
+table! {
+    userprofile_userphonenumber (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        phone_country_code -> Varchar,
+        phone_number -> Varchar,
+        user_id -> Int4,
+    }
+}
+
+table! {
+    userprofile_userprofile (id) {
+        id -> Int4,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        beta_allowed -> Bool,
+        avatar -> Nullable<Varchar>,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        user_id -> Int4,
+        notify_exchange_order_full -> Bool,
+        notify_login_ip -> Bool,
+        notify_new_deposit -> Bool,
+        notify_new_newsletter -> Bool,
+        notify_new_withdraw -> Bool,
+        is_ref -> Bool,
+        freeze_until -> Nullable<Timestamptz>,
+        status -> Varchar,
+        status_note -> Nullable<Jsonb>,
+        if_show_upline_ref -> Bool,
+        in_lock_cashback -> Bool,
+        in_lock_ref -> Bool,
+        ref_level -> Int2,
+        has_first_deposit -> Bool,
+        has_first_trading_transaction -> Bool,
+        phone_country_code -> Nullable<Varchar>,
+        phone_number -> Nullable<Varchar>,
+        phone_number_verified -> Bool,
+        last_update_password -> Nullable<Timestamptz>,
+    }
+}
+
+table! {
+    wallet_airdrop (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        min_hold_amount -> Numeric,
+        real_amount -> Numeric,
+        status -> Varchar,
+        available_market -> Numeric,
+        real_available_market -> Numeric,
+        currency_id -> Int4,
+        currency_hold_id -> Int4,
+    }
+}
+
+table! {
+    wallet_airdroptransaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        hold_amount -> Numeric,
+        total_hold_amount -> Numeric,
+        airdrop_id -> Int4,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_bankwithdrawal (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        wallet_id -> Nullable<Int4>,
+        tx_id -> Nullable<Int4>,
+        amount -> Int4,
+        sub_total -> Int4,
+        account -> Varchar,
+        status -> Varchar,
+        attempt -> Int4,
+        user_id -> Int4,
+        note -> Jsonb,
+    }
+}
+
+table! {
+    wallet_blockcypherwallet (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        address -> Text,
+        note -> Jsonb,
+        currency_id -> Int4,
+    }
+}
+
+table! {
+    wallet_cashbacktransaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        list_order_matched -> Nullable<Array<Int4>>,
+        amount -> Numeric,
+        lock_amount -> Numeric,
+        rate_info -> Jsonb,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_claimgastransaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        transaction_hash -> Varchar,
+        amount_claimed -> Numeric,
+        amount_claimed_all -> Numeric,
+        total_snapshot -> Numeric,
+        total_snapshot_all -> Numeric,
+        start_date -> Timestamptz,
+        end_date -> Timestamptz,
+        wallet_id -> Nullable<Int4>,
+    }
+}
+
+table! {
+    wallet_clearlock (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_cronhold (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_currency (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        name -> Varchar,
+        symbol -> Varchar,
+        enable -> Bool,
+        hone_page -> Nullable<Varchar>,
+        description -> Nullable<Varchar>,
+        is_base -> Bool,
+        withdraw_manual_threshold -> Numeric,
+        min_withdraw -> Numeric,
+        max_withdraw -> Numeric,
+        withdraw_fee_flat -> Numeric,
+        withdraw_fee_pct -> Numeric,
+        enable_withdraw -> Bool,
+        enable_deposit -> Bool,
+        note -> Nullable<Jsonb>,
+        crypto_data -> Nullable<Jsonb>,
+        disclaimer_deposit -> Nullable<Text>,
+        disclaimer_withdraw -> Nullable<Text>,
+        icon -> Nullable<Varchar>,
+        instruction_deposit -> Nullable<Text>,
+        instruction_withdraw -> Nullable<Text>,
+        regex_js -> Nullable<Varchar>,
+        regex_py -> Nullable<Varchar>,
+        required_confirmations -> Int4,
+        crypto_service -> Varchar,
+        max_withdraw_verified -> Numeric,
+        encrypt_data -> Text,
+        max_daily_withdraw -> Nullable<Numeric>,
+        max_daily_withdraw_verified -> Nullable<Numeric>,
+        enable_withdraw_cron -> Bool,
+        display_priority -> Int2,
+        is_enable -> Bool,
+        decimal_place -> Int4,
+    }
+}
+
+table! {
+    wallet_dailyprofit (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        min_hold_required -> Numeric,
+        profit -> Numeric,
+        real_profit -> Numeric,
+        currency_hold_id -> Int4,
+    }
+}
+
+table! {
+    wallet_ethservicewithdrawal (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        status -> Varchar,
+        attempt -> Int4,
+        note -> Nullable<Jsonb>,
+        transaction_id -> Int4,
+    }
+}
+
+table! {
+    wallet_leaderboardcron (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        deposit -> Numeric,
+        balance -> Numeric,
+        user_id -> Int4,
+    }
+}
+
+table! {
+    wallet_lockbenefit (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        #[sql_name = "type"]
+        type_ -> Varchar,
+        amount -> Numeric,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_lockcashbackrate (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        rate -> Numeric,
+        amount -> Numeric,
+        is_active -> Bool,
+        date -> Date,
+    }
+}
+
+table! {
+    wallet_masterwallet (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        encrypt_data -> Text,
+        platform -> Varchar,
+        balance -> Numeric,
+        note -> Nullable<Jsonb>,
+        balance_alerts -> Numeric,
+    }
+}
+
+table! {
+    wallet_masterwallet_currency (id) {
+        id -> Int4,
+        masterwallet_id -> Int4,
+        currency_id -> Int4,
+    }
+}
+
+table! {
+    wallet_monitormasterwallet (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        balance_alerts -> Numeric,
+        enable_withdraw -> Bool,
+        enable_deposit -> Bool,
+        enable_withdraw_cron -> Bool,
+        currency_id -> Int4,
+        manual_config -> Bool,
+        disconnected -> Bool,
+    }
+}
+
+table! {
+    wallet_omniaddress (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        address -> Varchar,
+        btc_amount -> Numeric,
+        coin_info -> Jsonb,
+        usdt_amount -> Numeric,
+    }
+}
+
+table! {
+    wallet_omniblock (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        block_hash -> Varchar,
+        note -> Jsonb,
+    }
+}
+
+table! {
+    wallet_omniwithdraw (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        transaction_ids -> Array<Int4>,
+        status -> Varchar,
+        currency_id -> Int4,
+        has_collect_coin -> Bool,
+        note -> Jsonb,
+    }
+}
+
+table! {
+    wallet_poolreward (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        amount_left -> Numeric,
+        is_active -> Bool,
+        currency_id -> Int4,
+    }
+}
+
+table! {
+    wallet_profittransaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        hold_amount -> Numeric,
+        total_hold_amount -> Numeric,
+        daily_profit_id -> Int4,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_releaselock (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        amount -> Numeric,
+        release_at -> Timestamptz,
+        status -> Varchar,
+        lock_benefit_id -> Int4,
+    }
+}
+
+table! {
+    wallet_rewardtransaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        status -> Varchar,
+        amount -> Numeric,
+        progress_info -> Jsonb,
+        wallet_id -> Int4,
+    }
+}
+
+table! {
+    wallet_smstracker (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        #[sql_name = "type"]
+        type_ -> Varchar,
+        note -> Jsonb,
+    }
+}
+
+table! {
+    wallet_stellarcron (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        status -> Varchar,
+        cron_data -> Jsonb,
+        verify_result -> Jsonb,
+    }
+}
+
+table! {
+    wallet_transaction (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        address -> Varchar,
+        transaction_hash -> Varchar,
+        method -> Varchar,
+        amount -> Numeric,
+        status -> Varchar,
+        note -> Nullable<Jsonb>,
+        is_notified_admin -> Bool,
+        currency_id -> Int4,
+        user_id -> Int4,
+        required_confirmations -> Int4,
+        wallet_address_id -> Nullable<Int4>,
+        wallet_id -> Nullable<Int4>,
+        fee -> Numeric,
+        approved_at -> Nullable<Timestamptz>,
+        approved_by_id -> Nullable<Int4>,
+        approved_status -> Nullable<Varchar>,
+        is_manual_deposit -> Bool,
+    }
+}
+
+table! {
+    wallet_transactionmaster (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        method -> Varchar,
+        from_address -> Varchar,
+        master_address -> Varchar,
+        hash -> Varchar,
+        note -> Nullable<Jsonb>,
+        currency_id -> Int4,
+    }
+}
+
+table! {
+    wallet_wallet (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        balance -> Numeric,
+        lock -> Numeric,
+        is_frozen -> Bool,
+        currency_id -> Int4,
+        user_id -> Int4,
+        withdraw_lock -> Numeric,
+        note -> Nullable<Jsonb>,
+    }
+}
+
+table! {
+    wallet_walletaddress (id) {
+        id -> Int4,
+        date_added -> Timestamptz,
+        date_modified -> Timestamptz,
+        deleted_at -> Nullable<Timestamptz>,
+        is_deleted -> Bool,
+        address -> Varchar,
+        note -> Nullable<Jsonb>,
+        wallet_id -> Int4,
+        encrypt_data -> Text,
+        balance -> Nullable<Numeric>,
+        need_update_balance -> Bool,
+        is_collecting -> Bool,
+    }
+}
+
+table! {
+    wallet_walletconfig (id) {
+        id -> Int4,
+        withdraw_fee_flat -> Numeric,
+        withdraw_fee_pct -> Numeric,
+        deposit_fee_flat -> Numeric,
+        deposit_fee_pct -> Numeric,
+        max_error_withdraw -> Int2,
+        max_withdraw_item -> Int2,
+        release_lock_interval -> Int4,
+    }
+}
+
+joinable!(auth_group_permissions -> auth_group (group_id));
+joinable!(auth_group_permissions -> auth_permission (permission_id));
+joinable!(auth_permission -> django_content_type (content_type_id));
+joinable!(auth_user_groups -> auth_group (group_id));
+joinable!(auth_user_groups -> auth_user (user_id));
+joinable!(auth_user_user_permissions -> auth_permission (permission_id));
+joinable!(auth_user_user_permissions -> auth_user (user_id));
+joinable!(django_admin_log -> auth_user (user_id));
+joinable!(django_admin_log -> django_content_type (content_type_id));
+joinable!(django_celery_beat_periodictask -> django_celery_beat_crontabschedule (crontab_id));
+joinable!(django_celery_beat_periodictask -> django_celery_beat_intervalschedule (interval_id));
+joinable!(django_celery_beat_periodictask -> django_celery_beat_solarschedule (solar_id));
+joinable!(exchange_candlestick -> exchange_currencypair (currency_pair_id));
+joinable!(exchange_exchangeorder -> auth_user (user_id));
+joinable!(exchange_exchangeorder -> exchange_currencypair (currency_pair_id));
+joinable!(general_restrictipaddress -> auth_user (created_by_id));
+joinable!(ref_reftransaction -> exchange_exchangeordermatched (exchange_order_matched_id));
+joinable!(ref_reftransaction -> ref_ref (ref_id));
+joinable!(userprofile_staffprofile -> auth_user (user_id));
+joinable!(userprofile_statictoken -> auth_user (user_id));
+joinable!(userprofile_twofactortoken -> auth_user (user_id));
+joinable!(userprofile_userphonenumber -> auth_user (user_id));
+joinable!(userprofile_userprofile -> auth_user (user_id));
+joinable!(wallet_airdroptransaction -> wallet_dailyprofit (airdrop_id));
+joinable!(wallet_airdroptransaction -> wallet_wallet (wallet_id));
+joinable!(wallet_bankwithdrawal -> auth_user (user_id));
+joinable!(wallet_blockcypherwallet -> wallet_currency (currency_id));
+joinable!(wallet_cashbacktransaction -> wallet_wallet (wallet_id));
+joinable!(wallet_claimgastransaction -> wallet_wallet (wallet_id));
+joinable!(wallet_clearlock -> wallet_wallet (wallet_id));
+joinable!(wallet_cronhold -> wallet_wallet (wallet_id));
+joinable!(wallet_dailyprofit -> wallet_currency (currency_hold_id));
+joinable!(wallet_ethservicewithdrawal -> wallet_transaction (transaction_id));
+joinable!(wallet_leaderboardcron -> auth_user (user_id));
+joinable!(wallet_lockbenefit -> wallet_wallet (wallet_id));
+joinable!(wallet_masterwallet_currency -> wallet_currency (currency_id));
+joinable!(wallet_masterwallet_currency -> wallet_masterwallet (masterwallet_id));
+joinable!(wallet_monitormasterwallet -> wallet_currency (currency_id));
+joinable!(wallet_omniwithdraw -> wallet_currency (currency_id));
+joinable!(wallet_poolreward -> wallet_currency (currency_id));
+joinable!(wallet_profittransaction -> wallet_dailyprofit (daily_profit_id));
+joinable!(wallet_profittransaction -> wallet_wallet (wallet_id));
+joinable!(wallet_releaselock -> wallet_lockbenefit (lock_benefit_id));
+joinable!(wallet_rewardtransaction -> wallet_wallet (wallet_id));
+joinable!(wallet_transaction -> wallet_currency (currency_id));
+joinable!(wallet_transactionmaster -> wallet_currency (currency_id));
+joinable!(wallet_wallet -> auth_user (user_id));
+joinable!(wallet_wallet -> wallet_currency (currency_id));
+joinable!(wallet_walletaddress -> wallet_wallet (wallet_id));
+
+allow_tables_to_appear_in_same_query!(
+    _Migration,
+    auth_group,
+    auth_group_permissions,
+    auth_permission,
+    auth_user,
+    auth_user_groups,
+    auth_user_user_permissions,
+    defender_accessattempt,
+    django_admin_log,
+    django_celery_beat_crontabschedule,
+    django_celery_beat_intervalschedule,
+    django_celery_beat_periodictask,
+    django_celery_beat_periodictasks,
+    django_celery_beat_solarschedule,
+    django_content_type,
+    django_migrations,
+    django_session,
+    exchange_candlestick,
+    exchange_currencypair,
+    exchange_exchangeconfig,
+    exchange_exchangeorder,
+    exchange_exchangeordermatched,
+    general_bankwebhookconfig,
+    general_restrictipaddress,
+    general_siteconfig,
+    general_sitestatistic,
+    general_subscriber,
+    ref_lockrefrate,
+    ref_ref,
+    ref_refconfig,
+    ref_reflevel,
+    ref_reftransaction,
+    reward_rewardconfig,
+    telegram_bot_telegrambotconfig,
+    telegram_bot_twofactorremovalhistory,
+    userprofile_kyc,
+    userprofile_staffprofile,
+    userprofile_statictoken,
+    userprofile_twofactortoken,
+    userprofile_userphonenumber,
+    userprofile_userprofile,
+    wallet_airdrop,
+    wallet_airdroptransaction,
+    wallet_bankwithdrawal,
+    wallet_blockcypherwallet,
+    wallet_cashbacktransaction,
+    wallet_claimgastransaction,
+    wallet_clearlock,
+    wallet_cronhold,
+    wallet_currency,
+    wallet_dailyprofit,
+    wallet_ethservicewithdrawal,
+    wallet_leaderboardcron,
+    wallet_lockbenefit,
+    wallet_lockcashbackrate,
+    wallet_masterwallet,
+    wallet_masterwallet_currency,
+    wallet_monitormasterwallet,
+    wallet_omniaddress,
+    wallet_omniblock,
+    wallet_omniwithdraw,
+    wallet_poolreward,
+    wallet_profittransaction,
+    wallet_releaselock,
+    wallet_rewardtransaction,
+    wallet_smstracker,
+    wallet_stellarcron,
+    wallet_transaction,
+    wallet_transactionmaster,
+    wallet_wallet,
+    wallet_walletaddress,
+    wallet_walletconfig,
+);
