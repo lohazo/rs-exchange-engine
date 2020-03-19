@@ -1,12 +1,12 @@
-extern crate diesel_demo;
+extern crate rs_exchange;
 extern crate diesel;
 
-use self::diesel_demo::*;
+use self::rs_exchange::*;
 use self::models::*;
 use self::diesel::prelude::*;
 
 fn main() {
-    use diesel_demo::schema::exchange_exchangeorder::dsl::*;
+    use rs_exchange::schema::exchange_exchangeorder::dsl::*;
 
     let connection = establish_connection();
     let results = exchange_exchangeorder.filter(is_market_order.eq(false))

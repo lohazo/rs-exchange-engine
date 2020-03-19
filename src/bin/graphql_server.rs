@@ -2,11 +2,11 @@
 
 use rocket::{response::content, State};
 
-use diesel_demo::config;
-use diesel_demo::ctx::Ctx;
-use diesel_demo::database;
-use diesel_demo::graphql;
-use diesel_demo::graphql::Schema;
+use rs_exchange::config;
+use rs_exchange::ctx::Ctx;
+use rs_exchange::database;
+use rs_exchange::graphql;
+use rs_exchange::graphql::Schema;
 
 #[rocket::get("/")]
 fn graphiql() -> content::Html<String> {
